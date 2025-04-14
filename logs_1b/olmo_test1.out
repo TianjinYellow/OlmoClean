@@ -1,0 +1,171 @@
+no change     /home/thuang/miniconda3/condabin/conda
+no change     /home/thuang/miniconda3/bin/conda
+no change     /home/thuang/miniconda3/bin/conda-env
+no change     /home/thuang/miniconda3/bin/activate
+no change     /home/thuang/miniconda3/bin/deactivate
+no change     /home/thuang/miniconda3/etc/profile.d/conda.sh
+no change     /home/thuang/miniconda3/etc/fish/conf.d/conda.fish
+no change     /home/thuang/miniconda3/shell/condabin/Conda.psm1
+no change     /home/thuang/miniconda3/shell/condabin/conda-hook.ps1
+no change     /home/thuang/miniconda3/lib/python3.12/site-packages/xontrib/conda.xsh
+no change     /home/thuang/miniconda3/etc/profile.d/conda.csh
+no change     /home/thuang/.bashrc
+No action taken.
+2025-03-26 05:16:56.689	gcn131.local.snellius.surf.nl:0	train:417	INFO	CLI environment prepared
+2025-03-26 05:16:59.371	gcn131.local.snellius.surf.nl:0	train:105	INFO	Saving config to config.yaml
+2025-03-26 05:17:09.047	gcn131.local.snellius.surf.nl:0	olmo.data.iterable_dataset:79	INFO	Saving global data order indices...
+2025-03-26 05:18:00.408	gcn131.local.snellius.surf.nl:0	olmo.data.iterable_dataset:88	INFO	Global data order indices saved to 'train_data/global_indices.npy'
+2025-03-26 05:18:54.973	gcn131.local.snellius.surf.nl:0	train:139	INFO	Building model...
+2025-03-26 05:18:55.038	gcn131.local.snellius.surf.nl:0	train:141	INFO	Total number of parameters: 7,298,617,344
+2025-03-26 05:18:55.038	gcn131.local.snellius.surf.nl:0	train:142	INFO	Number of non-embedding parameters: 6,887,575,552
+2025-03-26 05:18:55.041	gcn131.local.snellius.surf.nl:0	train:143	INFO	Peak GPU Memory (MB) before fsdp: 7
+2025-03-26 05:18:55.041	gcn131.local.snellius.surf.nl:0	train:172	INFO	Wrapping model with FSDP...
+2025-03-26 05:18:55.137	gcn131.local.snellius.surf.nl:0	olmo.model:1174	INFO	Initializing model parameters...
+2025-03-26 05:18:55.183	gcn131.local.snellius.surf.nl:0	train:232	INFO	Peak GPU Memory (MB) after fsdp: 10591
+2025-03-26 05:18:55.183	gcn131.local.snellius.surf.nl:0	train:233	INFO	Model:
+2025-03-26 05:18:55.183	gcn131.local.snellius.surf.nl:0	train:234	INFO	FullyShardedDataParallel(
+  (_fsdp_wrapped_module): OLMo(
+    (transformer): ModuleDict(
+      (wte): FullyShardedDataParallel(
+        (_fsdp_wrapped_module): Embedding(100352, 4096)
+      )
+      (emb_drop): Dropout(p=0.0, inplace=False)
+      (ln_f): RMSLayerNorm()
+      (blocks): ModuleList(
+        (0-31): 32 x FullyShardedDataParallel(
+          (_fsdp_wrapped_module): OLMoSequentialBlock(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (k_norm): RMSLayerNorm()
+            (q_norm): RMSLayerNorm()
+            (act): SwiGLU()
+            (attn_out): Linear(in_features=4096, out_features=4096, bias=False)
+            (ff_out): Linear(in_features=11008, out_features=4096, bias=False)
+            (rotary_emb): RotaryEmbedding()
+            (att_proj): Linear(in_features=4096, out_features=12288, bias=False)
+            (ff_proj): Linear(in_features=4096, out_features=22016, bias=False)
+            (attn_norm): RMSLayerNorm()
+            (ff_norm): RMSLayerNorm()
+          )
+        )
+      )
+      (ff_out): FullyShardedDataParallel(
+        (_fsdp_wrapped_module): Linear(in_features=4096, out_features=100352, bias=False)
+      )
+    )
+  )
+)
+step0
+
+ ########################################################
+step0
+
+ ########################################################
+step0
+
+ ########################################################
+2025-03-26 05:18:55.191	gcn131.local.snellius.surf.nl:0	olmo.optim:944	INFO	Constructing optimizer with 2 param groups
+2025-03-26 05:18:55.192	gcn131.local.snellius.surf.nl:0	train:335	INFO	Saving pre-train checkpoint...
+step0
+
+ ########################################################
+2025-03-26 05:18:55.703	gcn131.local.snellius.surf.nl:0	olmo.checkpoint:1930	INFO	Saving model and optim state...
+2025-03-26 05:19:06.505	gcn131.local.snellius.surf.nl:1	olmo.util:168	CRITICAL	Uncaught TimeoutError: Waiting for checkpoint model directory timed out
+Traceback (most recent call last):
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 436, in <module>
+    main(cfg)
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 336, in main
+    checkpoint_path, local_checkpoint_cache = trainer.save_checkpoint(checkpoint_type=checkpoint_type)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 631, in save_checkpoint
+    result = self.save_sharded_checkpoint()
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 539, in save_sharded_checkpoint
+    result = self._save_checkpoint(checkpointer, CheckpointType.sharded)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 485, in _save_checkpoint
+    checkpointer.save_checkpoint(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/checkpoint.py", line 1936, in save_checkpoint
+    wait_for(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/util.py", line 295, in wait_for
+    raise TimeoutError(f"{description} timed out")
+TimeoutError: Waiting for checkpoint model directory timed out
+2025-03-26 05:19:06.512	gcn131.local.snellius.surf.nl:2	olmo.util:168	CRITICAL	Uncaught TimeoutError: Waiting for checkpoint model directory timed out
+Traceback (most recent call last):
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 436, in <module>
+    main(cfg)
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 336, in main
+    checkpoint_path, local_checkpoint_cache = trainer.save_checkpoint(checkpoint_type=checkpoint_type)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 631, in save_checkpoint
+    result = self.save_sharded_checkpoint()
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 539, in save_sharded_checkpoint
+    result = self._save_checkpoint(checkpointer, CheckpointType.sharded)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 485, in _save_checkpoint
+    checkpointer.save_checkpoint(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/checkpoint.py", line 1936, in save_checkpoint
+    wait_for(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/util.py", line 295, in wait_for
+    raise TimeoutError(f"{description} timed out")
+TimeoutError: Waiting for checkpoint model directory timed out
+2025-03-26 05:19:06.536	gcn131.local.snellius.surf.nl:3	olmo.util:168	CRITICAL	Uncaught TimeoutError: Waiting for checkpoint model directory timed out
+Traceback (most recent call last):
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 436, in <module>
+    main(cfg)
+  File "/gpfs/home5/thuang/projects/OLMo/scripts/train.py", line 336, in main
+    checkpoint_path, local_checkpoint_cache = trainer.save_checkpoint(checkpoint_type=checkpoint_type)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 631, in save_checkpoint
+    result = self.save_sharded_checkpoint()
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 539, in save_sharded_checkpoint
+    result = self._save_checkpoint(checkpointer, CheckpointType.sharded)
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/train.py", line 485, in _save_checkpoint
+    checkpointer.save_checkpoint(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/checkpoint.py", line 1936, in save_checkpoint
+    wait_for(
+  File "/gpfs/home5/thuang/projects/OLMo/olmo/util.py", line 295, in wait_for
+    raise TimeoutError(f"{description} timed out")
+TimeoutError: Waiting for checkpoint model directory timed out
+W0326 05:19:09.511000 2980378 /gpfs/home5/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2980395 closing signal SIGTERM
+W0326 05:19:09.512000 2980378 /gpfs/home5/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2980397 closing signal SIGTERM
+W0326 05:19:09.512000 2980378 /gpfs/home5/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2980398 closing signal SIGTERM
+/home/thuang/miniconda3/envs/olmo/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+E0326 05:19:10.077000 2980378 /gpfs/home5/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 1) local_rank: 1 (pid: 2980396) of binary: /home/thuang/miniconda3/envs/olmo/bin/python
+Traceback (most recent call last):
+  File "/home/thuang/miniconda3/envs/olmo/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+  File "/home/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+  File "/home/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/home/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/home/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/thuang/miniconda3/envs/olmo/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts/train.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-03-26_05:19:09
+  host      : gcn131.local.snellius.surf.nl
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2980396)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+
+JOB STATISTICS
+==============
+Job ID: 10795450
+Cluster: snellius
+User/Group: thuang/thuang
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 64
+CPU Utilized: 00:09:39
+CPU Efficiency: 5.65% of 02:50:40 core-walltime
+Job Wall-clock time: 00:02:40
+Memory Utilized: 7.53 GB
+Memory Efficiency: 1.05% of 720.00 GB
