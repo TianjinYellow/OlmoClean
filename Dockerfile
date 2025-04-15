@@ -40,7 +40,7 @@ RUN echo "ClientAliveInterval 5" >> /etc/ssh/sshd_config
 # Expose SSH port for the openssh server
 EXPOSE 22
 #-------------VS code setup-------------------------------------
-RUN source acitvate olmo 
+
 # # Install pip for Python 3.11
 # RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
  
