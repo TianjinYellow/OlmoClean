@@ -45,8 +45,8 @@ EXPOSE 22
 # RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
  
 # install pip packages
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install PyYAML mkl-static mkl-include typing-extensions==4.12.2 matplotlib numpy
+RUN pip install --upgrade pip
+RUN pip install PyYAML mkl-static mkl-include typing-extensions==4.12.2 matplotlib numpy
 # RUN python3 -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
 
 #-------------- WIP ----------------------
