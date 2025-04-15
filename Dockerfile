@@ -1,5 +1,5 @@
-FROM nvidia/cuda:12.8.0-devel-ubuntu22.04
- 
+FROM allenzhangzy/olmo_env:v2
+
 ENV DEBIAN_FRONTEND=noninteractive
  
 # Install deadsnakes and Python 3.11 packages
@@ -22,30 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ninja-build \
     libnuma-dev && \
     rm -rf /var/lib/apt/lists/*
- 
-
-  
-# Install conda
-RUN  apt-get update && \
-     apt-get install -y --no-install-recommends \
-        build-essential \
-        ca-certificates \
-        curl \
-        wget \
-        libxml2-dev \
-        jq \
-        git && \
-    rm -rf /var/lib/apt/lists/* && \
-    curl -fsSL -v -o ~/miniconda.sh -O  https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    chmod +x ~/miniconda.sh && \
-    ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-    apt-get clean
-ENV PATH="/opt/conda/bin:${PATH}"  
-RUN pwd
-COPY olmo.yml .
-RUN conda env create -f olmo.yml
-
 #-------------VS code setup-------------------------------------
 # Install OpenSSH server for SSH debugging
 RUN apt-get update && apt-get install -y openssh-server && \
@@ -65,11 +41,11 @@ RUN echo "ClientAliveInterval 5" >> /etc/ssh/sshd_config
 EXPOSE 22
 #-------------VS code setup-------------------------------------
 RUN source acitvate olmo 
-# Install pip for Python 3.11
-RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+# # Install pip for Python 3.11
+# RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
  
-# (Optional) Make python3 point to Python 3.11
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+# # (Optional) Make python3 point to Python 3.11
+# RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
  
 # install pip packages
 RUN python3 -m pip install --upgrade pip
