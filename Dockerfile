@@ -16,9 +16,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     libjpeg-dev \
     libpng-dev \
-    python3.11 \
-    python3.11-dev \
-    python3.11-distutils \
     ninja-build \
     libnuma-dev && \
     rm -rf /var/lib/apt/lists/*
