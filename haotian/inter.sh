@@ -3,7 +3,7 @@ export NCCL_P2P_DISABLE=1
 torchrun \
   --nproc_per_node=4 \
   scripts/train.py \
-  /home/thuang/projects/OLMo/configs/official-1124/OLMo2-7B-stage1-our.yaml \
+  /OlmoClean/configs/official-1124/OLMo2-7B-stage1-our.yaml \
   --save_overwrite \
   --wandb.group=olmo7b \
   --wandb.entity=haotianhu603-ustc \
