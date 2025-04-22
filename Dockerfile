@@ -51,7 +51,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 # install pip packages
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install PyYAML mkl-static mkl-include typing-extensions==4.12.2 matplotlib numpy ipdb
-RUN python3 -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
+RUN python3 -m pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu128
 
 # ------ Install FP4 ------ # 
 
