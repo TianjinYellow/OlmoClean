@@ -49,7 +49,29 @@ from olmo.util import (
 )
 
 log = logging.getLogger("train")
+import torch.nn as nn
+from fp4_torch_kernel.layers import FP4Linear
+def prepare_model_for_real_fp4_training_simulation_act_weight(model,  target_module):
 
+    for name, module in reversed(model._modules.items()):
+        if len(list(module.children())) > 0:
+            model._modules[name] = prepare_model_for_real_fp4_training_simulation_act_weight(module, target_module)
+
+        if isinstance(module, nn.Linear):
+            if not name in target_module:
+                print('Keep in original linear layer', name, module)
+                continue
+            
+            # NOTE(hanqing): no need to pass those stuffs
+            bias_data = module.bias.data if module.bias is not None else None
+            in_features = module.in_features
+            out_features = module.out_features
+            bias = module.bias is not None
+            weight_data = module.weight.data
+            new_layers = FP4Linear(in_features, out_features,weight_data=weight_data,bias_data=bias)
+
+            model._modules[name] = new_layers
+    return model
 
 def main(cfg: TrainConfig) -> None:
     # Ensure run name set.
@@ -137,7 +159,12 @@ def main(cfg: TrainConfig) -> None:
 
     # Initialize the model.
     log.info("Building model...")
+    
     olmo_model = OLMo(cfg.model)
+    target_module = ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'up_proj', 'down_proj', 'gate_proj']
+    olmo_model=prepare_model_for_real_fp4_training_simulation_act_weight(olmo_model,  target_module)
+    print(olmo_model)
+    
     log.info(f"Total number of parameters: {olmo_model.num_params():,d}")
     log.info(f"Number of non-embedding parameters: {olmo_model.num_params(include_embedding=False):,d}")
     log.info(f"Peak GPU Memory (MB) before {cfg.distributed_strategy}: {int(peak_gpu_memory() or 0)}")
