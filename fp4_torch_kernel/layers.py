@@ -3,19 +3,20 @@ import torch.nn as nn
 from fp4_torch_kernel.utils import FP4ToBF16Function
 
 class FP4Linear(nn.Module):
-    def __init__(self, in_features, out_features, bias=True):
+    def __init__(self, in_features, out_features,weight_data=None,bias_data=None, bias=True):
         super().__init__()
         self.in_features = in_features
         self.out_features = out_features
-        weight = torch.empty(out_features, in_features, dtype=torch.bfloat16)
+        # weight = torch.empty(out_features, in_features, dtype=torch.bfloat16)
+        weight=weight_data
         self.weight = nn.Parameter(weight.view(torch.float4_e2m1fn_x2))
         if bias:
-            bias_tensor = torch.empty(out_features, dtype=torch.bfloat16)
+            # bias_tensor = torch.empty(out_features, dtype=torch.bfloat16)
+            bias_tensor=bias_data
             self.bias = nn.Parameter(bias_tensor.view(torch.float4_e2m1fn_x2))
         else:
             self.bias = None
-
-        self.reset_parameters()
+        # self.reset_parameters()
 
     def reset_parameters(self):
         # Standard initialization (here using normal distribution in bfloat16) then cast to float4.
