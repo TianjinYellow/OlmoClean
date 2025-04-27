@@ -161,7 +161,8 @@ def main(cfg: TrainConfig) -> None:
     log.info("Building model...")
     
     olmo_model = OLMo(cfg.model)
-    target_module = ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'up_proj', 'down_proj', 'gate_proj']
+    # target_module = ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'up_proj', 'down_proj', 'gate_proj']
+    target_module=['attn_out', 'ff_out', 'att_proj', 'ff_proj' ]
     olmo_model=prepare_model_for_real_fp4_training_simulation_act_weight(olmo_model,  target_module)
     print(olmo_model)
     
