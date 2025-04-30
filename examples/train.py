@@ -23,8 +23,9 @@ class SimpleFP4Model(nn.Module):
         return x
 
 def train():
-    device = "cuda"
-    model = SimpleFP4Model(10, 20, 5).to(device)
+    device = "cpu"
+    model = SimpleFP4Model(10, 20, 5)
+    model.to(device)
     optimizer = FP4Adam(model.parameters(), lr=1e-3)
     criterion = nn.MSELoss()
     x = torch.randn(4, 10, device=device, dtype=torch.bfloat16)
