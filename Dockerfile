@@ -62,11 +62,7 @@ RUN cd custom_fp4 && python3 setup.py develop && cd /
 # ------ Install Olmo ------ # 
 # Clone a public Git repository
 RUN git clone --branch container_install --single-branch https://github.com/TianjinYellow/OlmoClean.git /OlmoClean
-
-# Optionally, switch to a specific commit, branch, or tag
-# RUN cd fp4llmt && git checkout tags/2.3.3
-
-RUN python3 -m pip install -e /OlmoClean[all]
+RUN cd /OlmoClean && python3 -m pip install -e .[all]
 
 # Set the cloned repo as working directory
 WORKDIR /OlmoClean
